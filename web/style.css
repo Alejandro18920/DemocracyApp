@@ -1,0 +1,403 @@
+:root {
+    --clr-accent-primary: hsl(207, 100%, 17%);
+    --clr-accent-secondary: hsl(202, 100%, 93%);
+    --clr-accent-terciary: hsla(0, 0%, 100%, .2);
+    --clr-accent-danger: hsl(358, 60%, 88%);
+
+    --clr-background: hsl(200, 12%, 95%);
+
+    --clr-neutral-border: hsl(0, 0%, 0%, .1);
+    --clr-neutral-noncolor: hsla(0, 0%, 100%, .01);
+
+    --fc-default: hsl(0, 0%, 0%);
+    --fc-onaccent: hsl(0, 0%, 100%);
+
+    --font-family: 'Roboto', sans-serif;
+
+    --fw-regular: 400;
+    --fw-medium: 500;
+
+    --fs-label: 0.875rem;
+    --fs-body: 1rem;
+    --fs-header: 1rem;
+    --fs-display: 1.825rem;
+ 
+}
+
+@media (min-width: 50em) {
+
+}
+
+
+/*Box Sizing Rules*/
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+/*Remove Default Margin*/
+* {
+    padding: 0;
+    margin: 0;
+    font: inherit;
+
+}
+
+/* Remove list styles on ul, ol elements with a  */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core root defautls */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+/* Set core body defaults */
+body{
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+    max-width: 100%;
+    display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ------------------------------- */
+/* Utility Classes */
+body {
+    background-color: var(--clr-background);
+}
+
+a {
+    text-decoration: none;
+}
+
+.pill{
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: var(--fs-label);
+    font-weight: var(--fw-medium);
+    font-family: var(--font-family);
+}
+
+.pill:hover {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+/* NAVIGATION */
+nav {
+    padding: 15px;
+    width: 100%;
+}
+
+.navigation {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+
+}
+
+.navigation-item {
+    color: var(--fc-default);
+    background-color: var(--clr-neutral-noncolor);
+}
+
+/* SUBHEADER */
+.subheader {
+    padding: 15px;
+    width: 100%;
+    align-content: center;
+}
+
+.subheader-navigation {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BUTTONS */
+
+.button-item {
+    background-color: var(--clr-accent-terciary);
+    color: var(--fc-default);
+    border: 1px solid var(--clr-neutral-border);
+}
+
+.button-item:hover {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--clr-neutral-noncolor);
+}
+
+.button-accent {
+    background-color: var(--clr-accent-secondary);
+    color: var(--fc-default);
+}
+
+.button-danger {
+    background-color: var(--clr-accent-danger);
+    color: var(--fc-default);
+}
+
+.search-box {
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+    font-family: var(--font-family);
+    border: 1px solid var(--clr-neutral-border);
+    background-color: var(--clr-accent-terciary);
+    color: var(--fc-default);
+    width: 240px;
+
+}
+
+.search-box:hover{
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--clr-neutral-noncolor);
+}
+
+
+.title {
+    font-family: var(--font-family);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-regular);
+    color: var(--fc-default);
+    width: 386px;
+
+}
+
+header {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+
+    position: fixed;
+    height: 144px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    background-color: var(--clr-background);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow-y: scroll;
+
+    position: fixed;
+    top: 146px;
+    bottom: 136px;
+    left: 0px;
+    right: 0px;
+    background-color: var(--clr-background);
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 156px;
+    gap: 10px;
+
+    position: absolute;
+    height: 136px;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: var(--clr-accent-primary);
+}
+
+table {
+    width: 936px;
+    border: 1px solid var(--clr-neutral-border);
+    border-radius: 22px;
+    overflow: hidden;
+    border-collapse: collapse;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    
+}
+
+th {
+    padding: 8px 12px;
+    border: 1px solid var(--clr-neutral-border);
+    background-color: var(--clr-accent-secondary);
+    font-family: var(--font-family);
+    font-size: var(--fs-header);
+    font-weight: 500;
+    color: var(--fc-default);
+}
+
+td {
+    padding: 6px 12px;
+    border: 1px solid var(--clr-neutral-border);
+    font-family: var(--font-family);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    color: var(--fc-default);
+}
+
+footer > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 10px;
+
+    position: inherit;
+    width: 936px;
+    height: 80px;
+    left: calc(50% - 936px/2);
+    top: calc(50% - 80px/2);
+}
+
+footer > ul > li {
+    color: var(--fc-onaccent);
+    font-family: var(--font-family);
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-body);
+}
+
+
+
+/* --------------------
+-------------------
+
+FORMULARIO
+
+-------------------
+------------------- */
+
+
+.form-container{
+    background-color: var(--clr-background);
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+
+    width: 552px;
+    height: 404px;
+
+    overflow: hidden;
+
+}
+
+.form-title{
+    background-color: var(--clr-accent-secondary);
+    font-family: var(--font-family);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-regular);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 24px;
+    gap: 10px;
+
+    width: 552px;
+    height: 84px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px;
+    gap: 48px;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+form > span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+
+    width: 456px;
+    height: 44px;
+}
+
+form > span > label {
+    width: 150px;
+    /* display: flex; */
+    font-family: var(--font-family);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-header);
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    align-items: center;
+    text-align: right;
+    letter-spacing: 0.15px;
+
+    color: var(--fc-default);
+}
+
+
+.textbox {
+    background-color: var(--clr-accent-terciary);
+    width: 294px;
+} 
+
+.form-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 24px;
+    gap: 16px;
+
+    width: 552px;
+    height: 88px;
+
+    /* Neutral/Border */
+
+    border: 1px solid var(--clr-neutral-border);
+}
