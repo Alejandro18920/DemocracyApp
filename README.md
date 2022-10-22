@@ -7,5 +7,5 @@ Proyecto para el último ciclo de MisionTIC 2022 (Grupo 34)
 * Diana Madeleine Diaz Leal (Developer)
 * Joan Oswaldo Cardenas Rodriguez (Scrum Master)
 * Diego Alejandro Castillo Lasprilla (Developer)
-
-
+* Didier Duque Ramirez (Developer)
+* Lesly Sofia Caceres Salamanca (Developer)
