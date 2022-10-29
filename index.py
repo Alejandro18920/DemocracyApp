@@ -6,11 +6,13 @@ import json
 
 from drivers.driverMesa import DriverMesa
 from drivers.driverCandidato import DriverCandidato
+from drivers.driverPartido import DriverPartido
 
 democracy_app = Flask(__name__)
 
 _driver_mesa = DriverMesa()
 _driver_candidato = DriverCandidato()
+_driver_partido = DriverPartido()
 
 """PATH PARA ADMINISTRAR MESAS"""
 #GET - LISTAR MESAS 
@@ -78,6 +80,35 @@ def delete_candidato(id):
 def update_candidato(id):
     input = request.get_json()
     output = _driver_candidato.update_candidato(id,input)
+    return jsonify(output)    
+
+
+"""___________________PATH PARA ADMINISTRAR PARTIDOS_______________"""
+
+#GET - LISTAR PARTIDOS 
+@democracy_app.route('/partidos',methods=['GET'])
+def get_partidos():
+    output = _driver_partido.list_partido()
+    return jsonify(output)
+
+#POST - CREAR PARTIDOS
+@democracy_app.route('/partidos',methods=['POST'])
+def create_partido():
+    input = request.get_json()
+    output = _driver_partido.create_partido(input)
+    return jsonify(output)
+
+#DELETE - ELIMINAR PARTIDOS
+@democracy_app.route('/partidos/<string:id>',methods=['DELETE'])
+def delete_partido(id):
+    output = _driver_partido.delete_partido(id)
+    return jsonify(output)
+
+#DELETE - ACTUALIZAR PARTIDOS
+@democracy_app.route('/partidos/<string:id>',methods=['PUT'])
+def update_partido(id):
+    input = request.get_json()
+    output = _driver_partido.update_partido(id,input)
     return jsonify(output)    
 
 
