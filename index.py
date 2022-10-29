@@ -73,7 +73,7 @@ def delete_candidato(id):
     output = _driver_candidato.delete_candidato(id)
     return jsonify(output)
 
-#DELETE - ACTUALIZAR CANDIDATOS
+#UPDATE - ACTUALIZAR CANDIDATOS
 @democracy_app.route('/candidatos/<string:id>',methods=['PUT'])
 def update_candidato(id):
     input = request.get_json()
