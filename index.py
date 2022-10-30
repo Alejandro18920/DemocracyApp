@@ -7,14 +7,16 @@ import json
 from drivers.driverMesa import DriverMesa
 from drivers.driverCandidato import DriverCandidato
 from drivers.driverPartido import DriverPartido
+from drivers.driverResultado import DriverResultado
 
 democracy_app = Flask(__name__)
 
 _driver_mesa = DriverMesa()
 _driver_candidato = DriverCandidato()
 _driver_partido = DriverPartido()
+_driver_resultado = DriverResultado()
 
-"""PATH PARA ADMINISTRAR MESAS"""
+"""___________________PATH PARA ADMINISTRAR MESAS_______________"""
 #GET - LISTAR MESAS 
 @democracy_app.route('/mesas',methods=['GET'])
 def get_mesas():
@@ -34,28 +36,14 @@ def delete_mesa(id):
     output = _driver_mesa.delete_mesa(id)
     return jsonify(output)
 
-#DELETE - ACTUALIZAR MESAS
+#UPDATE - ACTUALIZAR MESAS
 @democracy_app.route('/mesas/<string:id>',methods=['PUT'])
 def update_mesa(id):
     input = request.get_json()
     output = _driver_mesa.update_mesa(id,input)
     return jsonify(output)
 
-
-
-"""
-#path de prueba
-@democracy_app.route('/saludar')
-def saludo():
-    return("<h1>Hola Wanna be developer</h1>")
-    
-@democracy_app.route('/')
-def home():
-    return("<h1>Inicio</h1>")
-
-"""
-
-"""PATH PARA ADMINISTRAR CANDIDATOS"""
+"""___________________PATH PARA ADMINISTRAR CANDIDATOS_______________"""
 #GET - LISTAR CANDIDATOS 
 @democracy_app.route('/candidatos',methods=['GET'])
 def get_candidatos():
@@ -104,11 +92,45 @@ def delete_partido(id):
     output = _driver_partido.delete_partido(id)
     return jsonify(output)
 
-#DELETE - ACTUALIZAR PARTIDOS
+#UPDATE - ACTUALIZAR PARTIDOS
 @democracy_app.route('/partidos/<string:id>',methods=['PUT'])
 def update_partido(id):
     input = request.get_json()
     output = _driver_partido.update_partido(id,input)
+    return jsonify(output)    
+
+
+"""___________________PATH PARA ADMINISTRAR RESULTADOS_______________"""
+
+#GET - LISTAR RESULTADOS 
+@democracy_app.route('/resultados',methods=['GET'])
+def get_resultado():
+    output = _driver_resultado.index()
+    return jsonify(output)
+    
+@democracy_app.route('/resultados/<string:id>',methods=['GET'])
+def get_resultados(id):
+    output = _driver_resultado.show(id)
+    return jsonify(output)
+
+#POST - CREAR RESULTADOS
+@democracy_app.route('/resultados/mesa/<string:id_mesa>/partido/<string:id_partido>/candidato/<string:id_candidato>',methods=['POST'])
+def create_resultados(id_mesa, id_partido,id_candidato):
+    input = request.get_json()
+    output = _driver_resultado.create_resultado(input,id_mesa,id_partido,id_candidato)
+    return jsonify(output)
+
+#DELETE - ELIMINAR RESULTADOS
+@democracy_app.route('/resultados/<string:id>',methods=['DELETE'])
+def delete_resultado(id):
+    output = _driver_resultado.delete_resultado(id)
+    return jsonify(output)
+
+#UPDATE - ACTUALIZAR RESULTADOS
+@democracy_app.route('/resultados/<string:id_resultado>/mesa/<string:id_mesa>/partido/<string:id_partido>/candidato/<string:id_candidato>/',methods=['PUT'])
+def update_resultado(id_resultado,id_mesa,id_partido,id_candidato):
+    input = request.get_json()
+    output = _driver_resultado.update_resultado(id_resultado,input,id_mesa,id_partido,id_candidato)
     return jsonify(output)    
 
 
