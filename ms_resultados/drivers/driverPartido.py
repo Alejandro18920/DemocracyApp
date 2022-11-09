@@ -24,13 +24,8 @@ class DriverPartido():
         _partido_db = self._repo_partido.findById(id)
         _partido_obj = Partido(_partido_db)
         _partido_obj.Nombre = input["Nombre"]
-        _partido_obj.Nit = input["Nit"]
-        _partido_obj.Resolucion = input["Resolucion"]
-        _partido_obj.Direccion = input["Direccion"]
-        _partido_obj.ciudadSede = input["ciudadSede"]
-        _partido_obj.Telefono = input["Telefono"]
-        _partido_obj.email = input["email"]
-       
+        _partido_obj.Lema = input["Lema"]
+                      
 
         return self._repo_partido.save(_partido_obj)
 

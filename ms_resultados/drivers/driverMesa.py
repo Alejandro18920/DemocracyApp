@@ -23,7 +23,11 @@ class DriverMesa():
     def update_mesa(self,id,input):
         _mesa_db = self._repo_mesa.findById(id)
         _mesa_obj = Mesa(_mesa_db)
-        _mesa_obj.voters = input["voters"]
+        _mesa_obj.municipio=input["Municipio"]
+        _mesa_obj.departamento=input["Departamento"]
+        _mesa_obj.puesto=input["Puesto"]
+        _mesa_obj.numero=input["Numero"]
+        _mesa_obj.votantes = input["Votantes"]
 
         return self._repo_mesa.save(_mesa_obj)
 

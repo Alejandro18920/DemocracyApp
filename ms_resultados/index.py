@@ -71,6 +71,12 @@ def update_candidato(id):
     return jsonify(output)    
 
 
+#UPDATE - ASIGNAR PARTIDO A CANDIDATOS
+@democracy_app.route("/candidatos/<string:id>/partido/<string:id_partido>", methods=['PUT'])
+def asignarPartidoaCandidato(id,id_partido):
+    json=_driver_candidato.assign_partido(id,id_partido)
+    return jsonify(json)
+
 """___________________PATH PARA ADMINISTRAR PARTIDOS_______________"""
 
 #GET - LISTAR PARTIDOS 
@@ -114,10 +120,10 @@ def get_resultados(id):
     return jsonify(output)
 
 #POST - CREAR RESULTADOS
-@democracy_app.route('/resultados/mesa/<string:id_mesa>/partido/<string:id_partido>/candidato/<string:id_candidato>',methods=['POST'])
-def create_resultados(id_mesa, id_partido,id_candidato):
+@democracy_app.route('/resultados/mesa/<string:id_mesa>/candidato/<string:id_candidato>',methods=['POST'])
+def create_resultados(id_mesa,id_candidato):
     input = request.get_json()
-    output = _driver_resultado.create_resultado(input,id_mesa,id_partido,id_candidato)
+    output = _driver_resultado.create_resultado(input,id_mesa,id_candidato)
     return jsonify(output)
 
 #DELETE - ELIMINAR RESULTADOS
@@ -127,10 +133,10 @@ def delete_resultado(id):
     return jsonify(output)
 
 #UPDATE - ACTUALIZAR RESULTADOS
-@democracy_app.route('/resultados/<string:id_resultado>/mesa/<string:id_mesa>/partido/<string:id_partido>/candidato/<string:id_candidato>/',methods=['PUT'])
-def update_resultado(id_resultado,id_mesa,id_partido,id_candidato):
+@democracy_app.route('/resultados/<string:id_resultado>',methods=['PUT'])
+def update_resultado(id_resultado):
     input = request.get_json()
-    output = _driver_resultado.update_resultado(id_resultado,input,id_mesa,id_partido,id_candidato)
+    output = _driver_resultado.update_resultado(id_resultado,input)
     return jsonify(output)    
 
 
