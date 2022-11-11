@@ -139,7 +139,12 @@ def update_resultado(id_resultado):
     output = _driver_resultado.update_resultado(id_resultado,input)
     return jsonify(output)    
 
-
+@democracy_app.route('/resultados',methods=['POST'])
+def filtrar_candidato():
+    input=request.get_json()
+    output = _driver_resultado.filtrarCandidato(input)
+    return jsonify(output)
+    
 
 def configuration():
     with open("config.json") as config:
