@@ -46,4 +46,11 @@ class DriverResultado():
         return self._repo_resultado.delete(id)
 
 
+###############CONSULTA DE RESULTADOS################
+    
+    def filtrarCandidato(self,input):
+        return self._repo_resultado.query(input)        
+
+
+
     

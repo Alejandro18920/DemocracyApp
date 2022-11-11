@@ -1,9 +1,10 @@
-import pymongo
+import json
+from typing import Generic, List, TypeVar, get_args, get_origin
+
 import certifi
+import pymongo
 from bson import DBRef
 from bson.objectid import ObjectId
-from typing import TypeVar, Generic, List, get_origin, get_args
-import json
 
 T = TypeVar('T')
 
