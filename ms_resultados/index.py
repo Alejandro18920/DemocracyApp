@@ -139,12 +139,31 @@ def update_resultado(id_resultado):
     output = _driver_resultado.update_resultado(id_resultado,input)
     return jsonify(output)    
 
-@democracy_app.route('/resultados',methods=['POST'])
-def filtrar_candidato():
-    input=request.get_json()
-    output = _driver_resultado.filtrarCandidato(input)
-    return jsonify(output)
-    
+@democracy_app.route('/resultados/mesa/<string:id_mesa>',methods=['GET'])   
+def getVotosporMesa(id_mesa):
+    json=_driver_resultado.ListarVotosporMesa(id_mesa)
+    return jsonify(json)
+
+@democracy_app.route('/resultados/candidato/<string:id_candidato>',methods=['GET'])   
+def getgetVotosporCandidato(id_candidato):
+    json=_driver_resultado.ListarVotosporCandidato(id_candidato)
+    return jsonify(json)
+
+@democracy_app.route('/resultados/VotosPorCandidato',methods=['GET'])   
+def getTotalVotosCandidato():
+    json=_driver_resultado.TotalVotosCandidato()
+    return jsonify(json)
+
+@democracy_app.route('/resultados/VotosPorMesa',methods=['GET'])   
+def getTotalVotosMesa():
+    json=_driver_resultado.TotalVotosMesa()
+    return jsonify(json)
+
+@democracy_app.route('/resultados/prueba',methods=['GET'])   
+def getprueba():
+    json=_driver_resultado.Prueba()
+    return jsonify(json)
+
 
 def configuration():
     with open("config.json") as config:
