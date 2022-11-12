@@ -47,10 +47,22 @@ class DriverResultado():
 
 
 ###############CONSULTA DE RESULTADOS################
-    
-    def filtrarCandidato(self,input):
-        return self._repo_resultado.query(input)        
+     
+    def ListarVotosporMesa(self,id_mesa):
+        return self._repo_resultado.getVotosporMesa(id_mesa)
 
+    def ListarVotosporCandidato(self,id_candidato):
+        return self._repo_resultado.getVotosporCandidato(id_candidato) 
+
+    def TotalVotosCandidato(self):
+        return self._repo_resultado.getTotalVotosCandidato() 
+
+    def TotalVotosMesa(self):
+        return self._repo_resultado.getTotalVotosMesa()     
+
+    def Prueba(self):
+        return self._repo_resultado.getprueba()
+        getprueba 
 
 
     
