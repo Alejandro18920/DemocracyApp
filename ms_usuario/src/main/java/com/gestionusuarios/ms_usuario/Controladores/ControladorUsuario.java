@@ -7,6 +7,8 @@ import com.gestionusuarios.ms_usuario.Repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -72,5 +74,20 @@ public class ControladorUsuario {
         return sb.toString();
     }
 
+    @PostMapping("/login")
+    public Usuario iniciarSesion(@RequestBody Usuario usuarioEntrada,
+                                 HttpServletResponse codigoRespuestaHttp) throws IOException {
+        String Email = usuarioEntrada.getEmail();
+        Usuario usuarioConsulta = _repo_usuario.searchUserByEmail(Email);
+        if (usuarioConsulta != null && usuarioConsulta.getPassword().equals(convertirSHA256(usuarioEntrada.getPassword()))) {
+            System.out.println("inicio de sesion exitoso");
+            usuarioConsulta.setPassword("");
+            return usuarioConsulta;
+        } else {
+            System.out.println("datos incorrectos " + Email + " " +usuarioEntrada);
+            codigoRespuestaHttp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        }
+    }
 
 }

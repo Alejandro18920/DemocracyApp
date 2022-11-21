@@ -9,6 +9,8 @@ import com.gestionusuarios.ms_usuario.Repositorios.RepositorioRolPermiso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -61,5 +63,19 @@ public class ControladorRolPermiso {
 
     }
 
+    @PostMapping("/{_id_rol}")
+    public RolPermiso obtenerPermiso(@PathVariable String _id_rol,
+                                     @RequestBody Permiso permisoEntrada,
+                                     HttpServletResponse respuesta) throws IOException {
+        Permiso permisoConsulta = _repo_Permiso.consultarPermiso(permisoEntrada.getUrl(),
+                permisoEntrada.getMetodo());
 
+        if (permisoConsulta != null) {
+            return _repo_RolPermiso.consultarRolPermiso(_id_rol,
+                    permisoConsulta.get_id());
+        } else {
+            respuesta.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        }
+    }
 }
