@@ -7,6 +7,7 @@ from flask_jwt_extended import create_access_token, verify_jwt_in_request
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 import requests
 import json
@@ -16,6 +17,7 @@ import re
 
 app = Flask(__name__)
 # Setup the Flask-JWT-Extended extension
+CORS(app)
 app.config["JWT_SECRET_KEY"] = "1234"  # Change this!
 jwt = JWTManager(app)
 
@@ -30,11 +32,12 @@ def inicio_sesion():
     print(jsonify(respuesta.json()))
 
     if(respuesta.status_code==200):
+        user=respuesta.json()
         expiration_time_token = datetime.timedelta(60 * 60)
         access_token=create_access_token(identity=respuesta.json(),expires_delta=expiration_time_token)
-        return jsonify({"access_token":access_token})
+        return jsonify({"access_token":access_token, "user_id": user["_id"]})
     else:
-        return jsonify({"mensaje":"Por favor verifique su correo o su contraseña"})
+        return jsonify({"mensaje":"Por favor verifique su correo o su contraseña"}),401
 
 @app.before_request
 def verificar_peticion():
@@ -347,6 +350,18 @@ def crear_usuario():
     json = respuesta.json()
     return jsonify(json)
 
+@app.route('/usuarios/eliminar/<string:id>', methods=["DELETE"])
+def eliminar_usuario(id):
+    # http://localhost:9999/usuario/id
+    headers = {"Content-Type": "application/json; charset=utf8"}
+    configuracion = cargar_configuracion()
+    url = configuracion["url-ms-usuarios"] + "/usuarios/"+ id
+    print(url)
+    respuesta = requests.delete(url,headers=headers)
+    json = respuesta.json()
+    print(json)
+    return jsonify(json)
+
 #________________________________ROLES-PERMISOS_______________________
 
 @app.route('/rolpermiso', methods=["GET"])
@@ -365,8 +380,44 @@ def crear_rolpermiso():
     datosEntrada = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf8"}
     configuracion = cargar_configuracion()
-    url = configuracion["url-ms-usuarios"] + "/usuarios/rolpermiso"
+    url = configuracion["url-ms-usuarios"] + "/rolpermiso"
     respuesta = requests.post(url,json=datosEntrada,headers=headers)
+    json = respuesta.json()
+    return jsonify(json)
+
+@app.route('/rolpermiso/eliminar/<string:id>', methods=["DELETE"])
+def eliminar_rolpermiso(id):
+    # http://localhost:9999/rolpermiso/eliminar/_id
+    headers = {"Content-Type": "application/json; charset=utf8"}
+    configuracion = cargar_configuracion()
+    url = configuracion["url-ms-usuarios"] + "/rolpermiso"+"/eliminar/"+str(id)
+    urlbuscar=configuracion["url-ms-usuarios"] + "/rolpermiso"+str(id)
+    print(url)
+    print(headers)
+    respuesta = requests.delete(url,headers=headers)
+    code = respuesta.status_code  # obtiene el estado de la respuesta
+    print("code "+str(code))
+    mensaje=str("No Content")
+    try:
+        if (code == 204):
+            mensaje="Rol Permiso Deleted"
+            print(mensaje)
+    except:
+        mensaje ="Rol Permiso Don't exist"
+        print(mensaje)
+    print (mensaje)
+    return jsonify({"message":mensaje},code)
+
+
+@app.route('/rolpermiso/actualizar/<string:id1>/<string:id2>/<string:id3>', methods=["PUT"])
+def actualizar_rolpermiso(id1,id2,id3):
+    # http://localhost:9999/rolpermiso/eliminar/_id
+    headers = {"Content-Type": "application/json; charset=utf8"}
+    configuracion = cargar_configuracion()
+    url = configuracion["url-ms-usuarios"] + "/rolpermiso/"+id1+"/"+id2+"/"+id3
+    print(url)
+    print(headers)
+    respuesta = requests.put(url,headers=headers)
     json = respuesta.json()
     return jsonify(json)
 
@@ -379,6 +430,7 @@ def home():
 def cargar_configuracion():
     with open("config.json") as archivo:
         datos_configuracion = json.load(archivo)
+        print(datos_configuracion)
     return datos_configuracion
 
 

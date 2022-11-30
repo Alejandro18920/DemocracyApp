@@ -1,10 +1,12 @@
 package com.gestionusuarios.ms_usuario.Controladores;
 
+import com.gestionusuarios.ms_usuario.Modelos.Permiso;
 import com.gestionusuarios.ms_usuario.Modelos.Rol;
 import com.gestionusuarios.ms_usuario.Modelos.Usuario;
 import com.gestionusuarios.ms_usuario.Repositorios.RepositorioRol;
 import com.gestionusuarios.ms_usuario.Repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/usuarios")
 public class ControladorUsuario {
@@ -34,10 +36,14 @@ public class ControladorUsuario {
         return _repo_usuario.findAll();
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/eliminar/{_id_usuario}")
-    public String eliminarUsuario(@PathVariable String _id_usuario) {
-        _repo_usuario.deleteById(_id_usuario);
-        return"El usuario con código " + _id_usuario + " ha sido eliminado";
+    public void eliminarUsuario(@PathVariable String _id_usuario){
+        Usuario usuarioConsulta=this._repo_usuario.findById(_id_usuario)
+                .orElse(null);
+        if(usuarioConsulta!=null){
+            this._repo_usuario.deleteById(_id_usuario);
+        }
     }
 
     @PutMapping("/actualizar/{_id_usuario}")
