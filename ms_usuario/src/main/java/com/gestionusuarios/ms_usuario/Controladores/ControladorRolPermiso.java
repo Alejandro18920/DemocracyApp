@@ -7,6 +7,7 @@ import com.gestionusuarios.ms_usuario.Repositorios.RepositorioPermiso;
 import com.gestionusuarios.ms_usuario.Repositorios.RepositorioRol;
 import com.gestionusuarios.ms_usuario.Repositorios.RepositorioRolPermiso;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,11 +43,15 @@ public class ControladorRolPermiso {
         return _repo_RolPermiso.save(rolPermiso);
 
     }
-
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/eliminar/{_id_RolPermiso}")
-    public String eliminarRolPermiso(@PathVariable String _id_RolPermiso){
-        _repo_RolPermiso.deleteById(_id_RolPermiso);
-        return "El RolPermiso con identificador " + _id_RolPermiso + " ha sido eliminado";
+    public void eliminarRolPermiso(@PathVariable String _id_RolPermiso){
+        RolPermiso rolpermisoConsulta=this._repo_RolPermiso.findById(_id_RolPermiso)
+                .orElse(null);
+        if(rolpermisoConsulta!=null){
+            this._repo_RolPermiso.deleteById(_id_RolPermiso);
+        }
     }
 
     @PutMapping("/{_id_RolPermiso}/{_id_rol}/{_id_permiso}")

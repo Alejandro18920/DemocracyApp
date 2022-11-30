@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from waitress import serve
+from flask_cors import CORS
 import json
 
 from drivers.driverMesa import DriverMesa
@@ -9,7 +10,11 @@ from drivers.driverCandidato import DriverCandidato
 from drivers.driverPartido import DriverPartido
 from drivers.driverResultado import DriverResultado
 
+
+
 democracy_app = Flask(__name__)
+CORS(democracy_app)
+
 
 _driver_mesa = DriverMesa()
 _driver_candidato = DriverCandidato()
